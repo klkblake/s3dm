@@ -15,7 +15,7 @@ func NewSphere(pos *V3, radius float64) *Sphere {
 	return s
 }
 
-func (s *Sphere) Intersect(r *Ray) *V3 {
+func (s *Sphere) Intersect(r *Ray) (*V3, *V3) {
 	
 	pos := s.Position()
 
@@ -51,9 +51,11 @@ func (s *Sphere) Intersect(r *Ray) *V3 {
 		//I don't know why that gives us -z. TODO:Fix
 		intersection.Z *= -1
 
-		return intersection
+		normal := s.Normal(intersection)
+
+		return intersection, normal
 	}
-	return nil
+	return nil, nil
 }
 
 func (s *Sphere) Normal(p *V3) *V3 {

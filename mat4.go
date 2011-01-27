@@ -94,11 +94,11 @@ func Matrix4Rotate(m [4*4]float64, angle float64, axis *V3) [4*4]float64 {
 // ----- Mat4 struct -----------------------------------------------------------
 
 type Mat4 struct {
-	matrix [16]float64	
+	matrix [4*4]float64	
 }
 
-func identityMat4() [16]float64 {
-	return [16]float64 {
+func identityMat4() [4*4]float64 {
+	return [4*4]float64 {
 		1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
@@ -111,8 +111,20 @@ func NewMat4() *Mat4 {
 	return m
 }
 
+func (m *Mat4) Copy() *Mat4 {
+	n := NewMat4()
+	for i := 0; i < 4*4; i += 1 {
+		n.matrix[i] = m.matrix[i]
+	}
+	return n
+}
+
 func (m *Mat4) SetIdentity() {
 	m.matrix = identityMat4()
+}
+
+func (m *Mat4) GetMatrix() [4*4]float64 {
+	return m.matrix
 }
 
 func (m *Mat4) RotateLocal(angle float64, axis *V3) {

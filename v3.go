@@ -15,6 +15,10 @@ func NewV3(x, y, z float64) *V3 {
 	return v
 }
 
+func (v *V3) Copy() *V3 {
+	return NewV3(v.X, v.Y, v.Z)
+}
+
 func (v *V3) Length() float64 {
 	return math.Sqrt((v.X * v.X) + (v.Y * v.Y) + (v.Z * v.Z))
 }
