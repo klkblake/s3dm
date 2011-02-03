@@ -6,6 +6,7 @@ GOFILES=\
 	v3.go\
 	ray.go\
 	sphere.go\
+	plane.go\
 
 include $(GOROOT)/src/Make.pkg
 

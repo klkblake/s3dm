@@ -34,6 +34,13 @@ func (v *V3) Cross(o *V3) *V3 {
 		(v.X * o.Y) - (v.Y * o.X))
 }
 
+func (v *V3) Reflect(norm *V3) *V3 {
+	distance := float64(2) * v.Dot(norm)
+	return NewV3(v.X - distance * norm.X, 
+		v.Y - distance * norm.Y, 
+		v.Z - distance * norm.Z)
+}
+
 func (v * V3) SetLength(l float64) *V3 {
 	u := v.Unit()
 	return u.Muls(l)

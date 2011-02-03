@@ -36,21 +36,26 @@ func (s *Sphere) Intersect(r *Ray) (*V3, *V3) {
 		t0 := (-B - math.Sqrt(delta)) / 2;
 		t1 := (-B + math.Sqrt(delta)) / 2;
 
-		t := float64(0)
+				t := float64(0)
 
-		if (!(t0<0.001 && t1<0.001)) {
-			if( t0<=0.001) { 
-				t=t1;
-			} else { 
-				t=t0; 
-			}
+		// t0 must be smaller than t1
+		if t0 > t1 {
+			t0, t1 = t1, t0
+		}
+
+		// Sphere behind ray
+		if t1 < 0 {
+			return nil, nil
+		}
+	
+		if t0 < 0 {
+			t = t1
+		} else {
+			t = t0
 		}
 
 		intersection := NewV3(r.O.X+r.D.X*t, r.O.Y+r.D.Y*t, r.O.Z+r.D.Z*t)
 		
-		//I don't know why that gives us -z. TODO:Fix
-		intersection.Z *= -1
-
 		normal := s.Normal(intersection)
 
 		return intersection, normal

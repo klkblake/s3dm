@@ -2,3 +2,6 @@ The Simple 3D Math Library by Tommo
 
 This is a Go package that includes several types and functions that may be 
 useful when writing a small game or 3D application.
+
+I recommend building with gb, which can be found here:
+https://github.com/skelterjohn/go-gb
