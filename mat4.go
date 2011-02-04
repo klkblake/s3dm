@@ -170,6 +170,50 @@ func (m *Mat4) SetPosition(p *V3) {
 	m.matrix[14] = p.Z
 }
 
+func (m *Mat4) SetRightUpForward(right, up, forward *V3) {
+	m.matrix[0] = right.X; m.matrix[1] = right.Y; m.matrix[2] = right.Z
+	m.matrix[4] = up.X; m.matrix[5] = up.Y; m.matrix[6] = up.Z
+	m.matrix[8] = forward.X; m.matrix[9] = forward.Y; m.matrix[10] = forward.Z
+}
+
+// Get Euler angles in degrees
+func (m *Mat4) GetEuler() *V3 {
+	x := math.Atan((-m.matrix[6]) / m.matrix[10])
+    y := math.Asin(m.matrix[2])
+    z := math.Atan((-m.matrix[1]) / m.matrix[0])
+
+	// Convert to Degrees
+	x *= 180 / math.Pi
+	y *= 180 / math.Pi
+	z *= 180 / math.Pi
+
+	return NewV3(x, y, z)
+}
+
+// Set Euler angles in degrees
+func (m *Mat4) SetEuler(r *V3) {
+	// Convert to Radians
+	r.X *= math.Pi / 180
+	r.Y *= math.Pi / 180
+	r.Z *= math.Pi / 180
+
+	m.matrix[0] = math.Cos(r.Y) * math.Cos(r.Z)
+	m.matrix[1] = -math.Cos(r.Y) * math.Sin(r.Z)
+	m.matrix[2] = math.Sin(r.Y)
+
+	m.matrix[4] = math.Sin(r.X) * math.Sin(r.Y) * math.Cos(r.Z) + 
+		math.Cos(r.X)*math.Sin(r.Z)
+	m.matrix[5] = -math.Sin(r.X) * math.Sin(r.Y) * math.Sin(r.Z) + 
+		math.Cos(r.X) * math.Cos(r.Z)
+	m.matrix[6] = -math.Sin(r.X) * math.Cos(r.Y)
+
+	m.matrix[8] = -math.Cos(r.X) * math.Sin(r.Y) * math.Cos(r.Z) + 
+		math.Sin(r.X) * math.Sin(r.Z)
+	m.matrix[9] = math.Cos(r.X) * math.Sin(r.Y) * math.Sin(r.Z) + 
+		math.Sin(r.X) * math.Cos(r.Z)
+	m.matrix[10] = math.Cos(r.X) * math.Cos(r.Y)
+}
+
 func (m *Mat4) String() string {
 	s := "["
 	for i := 0; i < 16; i += 1 {
