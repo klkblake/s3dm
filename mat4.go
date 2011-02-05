@@ -176,7 +176,7 @@ func (m *Mat4) SetRightUpForward(right, up, forward *V3) {
 	m.matrix[8] = forward.X; m.matrix[9] = forward.Y; m.matrix[10] = forward.Z
 }
 
-// Get Euler angles in degrees
+// Get matrix rotation as Euler angles in degrees
 func (m *Mat4) GetEuler() *V3 {
 	x := math.Atan((-m.matrix[6]) / m.matrix[10])
     y := math.Asin(m.matrix[2])
@@ -190,7 +190,7 @@ func (m *Mat4) GetEuler() *V3 {
 	return NewV3(x, y, z)
 }
 
-// Set Euler angles in degrees
+// Set matrix rotation to Euler angles in degrees
 func (m *Mat4) SetEuler(r *V3) {
 	// Convert to Radians
 	r.X *= math.Pi / 180
@@ -212,6 +212,23 @@ func (m *Mat4) SetEuler(r *V3) {
 	m.matrix[9] = math.Cos(r.X) * math.Sin(r.Y) * math.Sin(r.Z) + 
 		math.Sin(r.X) * math.Cos(r.Z)
 	m.matrix[10] = math.Cos(r.X) * math.Cos(r.Y)
+}
+
+// Set matrix rotation to quateronion 'q'
+func (m *Mat4) SetQuaternion(q *Qtrnn) {
+	xx, xy, xz, xw := q.X*q.X, q.X*q.Y, q.X*q.Z, q.X*q.W
+	yy, yz, yw := q.Y*q.Y, q.Y*q.Z, q.Y*q.W
+	zz, zw := q.Z*q.Z, q.Z*q.W
+	
+	m.matrix[0] = 1.0 - 2.0 * (yy + zz)
+	m.matrix[1] = 2.0 * (xy - zw)
+	m.matrix[2] = 2.0 * (xz + yw)
+	m.matrix[4] = 2.0 * (xy + zw)
+	m.matrix[5] = 1.0 - 2.0 * (xx + zz)
+	m.matrix[6] = 2.0 * (yz - xw)
+	m.matrix[8] = 2.0 * (xz - yw)
+	m.matrix[9] = 2.0 * (yz + xw)
+	m.matrix[10] = 1.0 - 2.0 * (xx + yy)
 }
 
 func (m *Mat4) String() string {
