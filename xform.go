@@ -4,29 +4,29 @@ package s3dm
 // rotation
 
 // TODO: Scale
-type Transform struct {
+type Xform struct {
 	Mat3
 	pos *V3
 }
 
-func NewTransform() *Transform {
-	t := new(Transform)
+func NewXform() *Xform {
+	t := new(Xform)
 	t.SetIdentity()
 	t.pos = NewV3(0, 0, 0)
 	return t
 }
 
-func (t *Transform) Copy() *Transform {
-	o := new(Transform)
+func (t *Xform) Copy() *Xform {
+	o := new(Xform)
 	o.Mat3 = *t.Mat3.Copy()
 	o.pos = t.pos.Copy()
 	return o
 }
 
-func (t *Transform) Position() *V3 {
+func (t *Xform) Position() *V3 {
 	return t.pos
 }
 
-func (t *Transform) SetPosition(v *V3) {
+func (t *Xform) SetPosition(v *V3) {
 	t.pos.Set(v)
 }

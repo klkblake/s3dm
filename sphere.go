@@ -3,7 +3,7 @@ package s3dm
 import "math"
 
 type Sphere struct {
-	Transform
+	Xform
 	Radius float64
 }
 
