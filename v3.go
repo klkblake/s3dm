@@ -25,6 +25,10 @@ func (v *V3) Equals(o *V3) bool {
 	return v.X == o.X && v.Y == o.Y && v.Z == o.Z
 }
 
+func (v *V3) Set(o *V3) {
+	v.X, v.Y, v.Z = o.X, o.Y, o.Z
+}
+
 // Returns the magnitude of 'v'
 func (v *V3) Length() float64 {
 	return math.Sqrt((v.X * v.X) + (v.Y * v.Y) + (v.Z * v.Z))

@@ -1,7 +1,7 @@
 package s3dm
 
 type Plane struct {
-	Mat4
+	Transform
 }
 
 func NewPlane(origin, normal *V3) *Plane {
