@@ -6,7 +6,7 @@ type Plane struct {
 
 func NewPlane(origin, normal *V3) *Plane {
 	p := new(Plane)
-	p.SetIdentity()
+	p.ResetXform()
 	p.SetPosition(origin)
 
 	up := normal
