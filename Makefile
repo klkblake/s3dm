@@ -5,7 +5,7 @@ GOFILES=\
 	mat3.go\
 	v3.go\
 	qtrnn.go\
-	transform.go\
+	xform.go\
 	ray.go\
 	sphere.go\
 	plane.go\
