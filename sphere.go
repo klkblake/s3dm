@@ -23,14 +23,15 @@ func (s *Sphere) Normal(p *V3) *V3 {
 
 func (s *Sphere) Intersect(r *Ray) (*V3, *V3) {	
 	pos := s.Position()
-    A := r.D.Dot(r.D)
+	ro, rd := r.O(), r.D()
+    A := rd.Dot(rd)
     B := float64(2) * (
-		r.D.X * (r.O.X - pos.X) +
-		r.D.Y * (r.O.Y - pos.Y) +
-		r.D.Z * (r.O.Z - pos.Z))
-	C := ((r.O.X - pos.X) * (r.O.X - pos.X) +
-		(r.O.Y - pos.Y) * (r.O.Y - pos.Y) +
-		(r.O.Z - pos.Z) * (r.O.Z - pos.Z)) - 
+		rd.X * (ro.X - pos.X) +
+		rd.Y * (ro.Y - pos.Y) +
+		rd.Z * (ro.Z - pos.Z))
+	C := ((ro.X - pos.X) * (ro.X - pos.X) +
+		(ro.Y - pos.Y) * (ro.Y - pos.Y) +
+		(ro.Z - pos.Z) * (ro.Z - pos.Z)) - 
 		s.Radius * s.Radius
 
 	delta := B * B - 4 * A * C;
@@ -56,7 +57,7 @@ func (s *Sphere) Intersect(r *Ray) (*V3, *V3) {
 			t = t0
 		}
 
-		intersection := NewV3(r.O.X+r.D.X*t, r.O.Y+r.D.Y*t, r.O.Z+r.D.Z*t)		
+		intersection := NewV3(ro.X+rd.X*t, ro.Y+rd.Y*t, ro.Z+rd.Z*t)		
 		normal := s.Normal(intersection)
 		return intersection, normal
 	}
