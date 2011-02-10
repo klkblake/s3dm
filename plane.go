@@ -45,6 +45,10 @@ func (p *Plane) Intersect(r *Ray) (*V3, *V3) {
 	if t <= 0 {
 		return nil, nil
 	}
+	// If hitting underside; flip plane normal
+	if denom > 0 {
+		return ro.Add(rd.Muls(t)), pn.Muls(-1)
+	}
 	return ro.Add(rd.Muls(t)), pn
 }
 
