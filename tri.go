@@ -63,6 +63,10 @@ func NewTri(p1, p2, p3 *V3) *Tri {
 	return t
 }
 
+func (t *Tri) Copy() *Tri {
+	return NewTri(t.Points())
+}
+
 func (t *Tri) Points() (*V3, *V3, *V3)  {
 	return t.Mulv(&t.st.p1), t.Mulv(&t.st.p2), t.Mulv(&t.st.p3)
 }

@@ -10,6 +10,7 @@ GOFILES=\
 	sphere.go\
 	plane.go\
 	tri.go\
+	trimesh.go\
 
 include $(GOROOT)/src/Make.pkg
 
