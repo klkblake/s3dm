@@ -55,7 +55,7 @@ func (s *Sphere) Intersect(r *Ray) (*V3, *V3) {
 			t = t1
 		} else {
 			t = t0
-		}
+		}		
 
 		intersection := NewV3(ro.X+rd.X*t, ro.Y+rd.Y*t, ro.Z+rd.Z*t)		
 		normal := s.Normal(intersection)

@@ -31,3 +31,7 @@ func (r *Ray) SetD(d *V3) {
 	r.SetIdentity() // Reset rotations
 	r.d.Set(d.Unit())	
 }
+
+func (r *Ray) Advance(a float64) {
+	r.MoveLocal(r.D().Muls(a))
+}

@@ -35,6 +35,19 @@ func (t *Xform) SetPosition(v *V3) {
 	t.pos.Set(v)
 }
 
+func (t *Xform) MoveGlobal(v *V3) {
+	t.SetPosition(t.Position().Add(v))
+}
+
+func (t *Xform) MoveLocal(v *V3) {
+	m := t.GetMatrix()
+	d := NewV3(
+		v.X * m[0] + v.Y * m[3] + v.Z * m[6],
+		v.X * m[1] + v.Y * m[4] + v.Z * m[7],
+		v.X * m[2] + v.Y * m[5] + v.Z * m[8])
+	t.SetPosition(t.Position().Add(d))
+}
+
 func (t *Xform) GetMatrix4() [4*4]float64 {
 	result := [4*4]float64 {}
 	
