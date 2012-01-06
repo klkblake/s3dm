@@ -4,7 +4,7 @@ import "math"
 import "strconv"
 
 type Mat3 struct {
-	matrix [3*3]float64	
+	matrix [3*3]float64
 }
 
 func NewMat3() *Mat3 {
@@ -84,15 +84,15 @@ func (m *Mat3) SetEuler(r *V3) {
 	m.matrix[1] = -math.Cos(r.Y) * math.Sin(r.Z)
 	m.matrix[2] = math.Sin(r.Y)
 
-	m.matrix[3] = math.Sin(r.X) * math.Sin(r.Y) * math.Cos(r.Z) + 
+	m.matrix[3] = math.Sin(r.X) * math.Sin(r.Y) * math.Cos(r.Z) +
 		math.Cos(r.X)*math.Sin(r.Z)
-	m.matrix[4] = -math.Sin(r.X) * math.Sin(r.Y) * math.Sin(r.Z) + 
+	m.matrix[4] = -math.Sin(r.X) * math.Sin(r.Y) * math.Sin(r.Z) +
 		math.Cos(r.X) * math.Cos(r.Z)
 	m.matrix[5] = -math.Sin(r.X) * math.Cos(r.Y)
 
-	m.matrix[6] = -math.Cos(r.X) * math.Sin(r.Y) * math.Cos(r.Z) + 
+	m.matrix[6] = -math.Cos(r.X) * math.Sin(r.Y) * math.Cos(r.Z) +
 		math.Sin(r.X) * math.Sin(r.Z)
-	m.matrix[7] = math.Cos(r.X) * math.Sin(r.Y) * math.Sin(r.Z) + 
+	m.matrix[7] = math.Cos(r.X) * math.Sin(r.Y) * math.Sin(r.Z) +
 		math.Sin(r.X) * math.Cos(r.Z)
 	m.matrix[8] = math.Cos(r.X) * math.Cos(r.Y)
 }
@@ -102,7 +102,7 @@ func (m *Mat3) SetQuaternion(q *Qtrnn) {
 	xx, xy, xz, xw := q.X*q.X, q.X*q.Y, q.X*q.Z, q.X*q.W
 	yy, yz, yw := q.Y*q.Y, q.Y*q.Z, q.Y*q.W
 	zz, zw := q.Z*q.Z, q.Z*q.W
-	
+
 	m.matrix[0] = 1.0 - 2.0 * (yy + zz)
 	m.matrix[1] = 2.0 * (xy - zw)
 	m.matrix[2] = 2.0 * (xz + yw)
