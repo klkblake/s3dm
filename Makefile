@@ -11,6 +11,7 @@ GOFILES=\
 	plane.go\
 	tri.go\
 	trimesh.go\
+	frustum.go\
 
 include $(GOROOT)/src/Make.pkg
 
