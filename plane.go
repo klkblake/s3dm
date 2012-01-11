@@ -52,3 +52,12 @@ func (p *Plane) Intersect(r *Ray) (*V3, *V3) {
 	return ro.Add(rd.Muls(t)), pn
 }
 
+func (p *Plane) Side(point *V3) int {
+	dot := p.N().Dot(point)
+	if dot > 0 {
+		return 1
+	} else if dot < 0 {
+		return -1
+	}
+	return 0
+}

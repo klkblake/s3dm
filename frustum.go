@@ -39,3 +39,17 @@ func (frustum *Frustum) Update() {
 	// Right
 	frustum.Planes[5] = NewPlane(frustum.Position(), frustum.Mulv(NewV3(-math.Cos(angleX), 0, -math.Sin(angleX))))
 }
+
+func (frustum *Frustum) IntersectsAABB(aabb *AABB) int {
+	res := 1
+	for _, plane := range frustum.Planes {
+		intersects := aabb.IntersectsPlane(plane)
+		if intersects < 0 {
+			return intersects
+		}
+		if intersects == 0 {
+			res = 0
+		}
+	}
+	return res
+}

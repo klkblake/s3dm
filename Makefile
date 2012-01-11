@@ -12,6 +12,7 @@ GOFILES=\
 	tri.go\
 	trimesh.go\
 	frustum.go\
+	aabb.go\
 
 include $(GOROOT)/src/Make.pkg
 
