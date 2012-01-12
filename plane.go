@@ -20,7 +20,7 @@ func (p *Plane) O() *V3 {
 }
 
 func (p *Plane) N() *V3 {
-	return p.Mulv(p.n)
+	return p.n
 }
 
 func (p *Plane) SetO(o *V3) {
@@ -30,6 +30,31 @@ func (p *Plane) SetO(o *V3) {
 func (p *Plane) SetN(n *V3) {
 	p.SetIdentity() // Clear rotations
 	p.n.Set(n.Unit())
+}
+
+func (p *Plane) RotateGlobal(angle float64, axis *V3) {
+	p.Xform.RotateGlobal(angle, axis)
+	p.SetN(p.Mulv(p.n))
+}
+
+func (p *Plane) RotateLocal(angle float64, axis *V3) {
+	p.Xform.RotateLocal(angle, axis)
+	p.SetN(p.Mulv(p.n))
+}
+
+func (p *Plane) SetEuler(r *V3) {
+	p.Xform.SetEuler(r)
+	p.SetN(p.Mulv(p.n))
+}
+
+func (p *Plane) SetQuaternion(q *Qtrnn) {
+	p.Xform.SetQuaternion(q)
+	p.SetN(p.Mulv(p.n))
+}
+
+func (p *Plane) SetRightUpForward(right, up, forward *V3) {
+	p.Xform.SetRightUpForward(right, up, forward)
+	p.SetN(p.Mulv(p.n))
 }
 
 func (p *Plane) Intersect(r *Ray) (*V3, *V3) {
