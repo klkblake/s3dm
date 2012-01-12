@@ -3,6 +3,7 @@ package s3dm
 type Plane struct {
 	Xform
 	n *V3
+	d float64
 }
 
 func NewPlane(o, n *V3) *Plane {
@@ -25,6 +26,7 @@ func (p *Plane) N() *V3 {
 
 func (p *Plane) SetO(o *V3) {
 	p.SetPosition(o)
+	p.d = -p.n.Dot(o)
 }
 
 func (p *Plane) SetN(n *V3) {
@@ -78,7 +80,7 @@ func (p *Plane) Intersect(r *Ray) (*V3, *V3) {
 }
 
 func (p *Plane) Side(point *V3) int {
-	dot := p.N().Dot(point)
+	dot := p.n.Dot(point) - p.d
 	if dot > 0 {
 		return 1
 	} else if dot < 0 {
