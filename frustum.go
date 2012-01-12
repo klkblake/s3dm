@@ -26,7 +26,7 @@ func NewFrustum(near float64, far float64, fovy float64, aspect float64) *Frustu
 }
 
 func (frustum *Frustum) Update() {
-	lookAt := frustum.Forward().Unit()
+	lookAt := frustum.Mulv(NewV3(0, 0, -1)).Unit()
 	angleY := frustum.Fovy * 0.5
 	angleX := angleY * frustum.Aspect
 	// Near
