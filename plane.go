@@ -80,7 +80,7 @@ func (p *Plane) Intersect(r *Ray) (*V3, *V3) {
 }
 
 func (p *Plane) Side(point *V3) int {
-	dot := p.n.Dot(point) - p.d
+	dot := p.n.Dot(point) + p.d
 	if dot > 0 {
 		return 1
 	} else if dot < 0 {
