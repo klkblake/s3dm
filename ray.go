@@ -29,7 +29,7 @@ func (r *Ray) SetO(o *V3) {
 
 func (r *Ray) SetD(d *V3) {
 	r.SetIdentity() // Reset rotations
-	r.d.Set(d.Unit())	
+	r.d.Set(d.Unit())
 }
 
 func (r *Ray) Advance(a float64) {

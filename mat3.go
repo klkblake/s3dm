@@ -188,7 +188,7 @@ func (m *Mat3) rotate(angle float64, axis *V3) *Mat3 {
 func (m *Mat3) String() string {
 	s := "["
 	for i := 0; i < 9; i += 1 {
-		s += strconv.Ftoa64(m.matrix[i], 'e', 2)
+		s += strconv.FormatFloat(m.matrix[i], 'e', 2, 64)
 		if i < 8 {
 			s += ", "
 		}
