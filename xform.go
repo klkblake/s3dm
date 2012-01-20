@@ -44,9 +44,9 @@ func (t *Xform) MoveGlobal(v *V3) {
 func (t *Xform) MoveLocal(v *V3) {
 	m := t.GetMatrix()
 	d := NewV3(
-		v.X * m[0] + v.Y * m[1] + v.Z * m[2],
-		v.X * m[3] + v.Y * m[4] + v.Z * m[5],
-		v.X * m[6] + v.Y * m[7] + v.Z * m[8])
+		v.X * m[0] + v.Y * m[3] + v.Z * m[6],
+		v.X * m[1] + v.Y * m[4] + v.Z * m[7],
+		v.X * m[2] + v.Y * m[5] + v.Z * m[8])
 	t.SetPosition(t.Position().Add(d))
 }
 
@@ -65,9 +65,9 @@ func (t *Xform) ScaleGlobal(v *V3) {
 func (t *Xform) ScaleLocal(v *V3) {
 	m := t.GetMatrix()
 	d := NewV3(
-		v.X * m[0] + v.Y * m[1] + v.Z * m[2],
-		v.X * m[3] + v.Y * m[4] + v.Z * m[5],
-		v.X * m[6] + v.Y * m[7] + v.Z * m[8])
+		v.X * m[0] + v.Y * m[3] + v.Z * m[6],
+		v.X * m[1] + v.Y * m[4] + v.Z * m[7],
+		v.X * m[2] + v.Y * m[5] + v.Z * m[8])
 	t.SetScale(t.Scale().Add(d))
 }
 
@@ -77,13 +77,13 @@ func (t *Xform) GetMatrix4() [4*4]float64 {
 	// Set rotation
 	m := t.GetMatrix()
 	result[0] = m[0] * t.Scale().X
-	result[1] = m[3] * t.Scale().X
-	result[2] = m[6] * t.Scale().X
-	result[4] = m[1] * t.Scale().Y
+	result[1] = m[1] * t.Scale().X
+	result[2] = m[2] * t.Scale().X
+	result[4] = m[3] * t.Scale().Y
 	result[5] = m[4] * t.Scale().Y
-	result[6] = m[7] * t.Scale().Y
-	result[8] = m[2] * t.Scale().Z
-	result[9] = m[5] * t.Scale().Z
+	result[6] = m[5] * t.Scale().Y
+	result[8] = m[6] * t.Scale().Z
+	result[9] = m[7] * t.Scale().Z
 	result[10] = m[8] * t.Scale().Z
 
 	// Set Position
