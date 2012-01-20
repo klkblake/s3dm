@@ -3,6 +3,7 @@ include $(GOROOT)/src/Make.inc
 TARG=s3dm
 GOFILES=\
 	mat3.go\
+	mat4.go\
 	v3.go\
 	qtrnn.go\
 	xform.go\
