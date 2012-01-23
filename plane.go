@@ -32,6 +32,7 @@ func (p *Plane) SetO(o *V3) {
 func (p *Plane) SetN(n *V3) {
 	p.SetIdentity() // Clear rotations
 	p.n.Set(n.Unit())
+	p.d = -p.n.Dot(p.Position())
 }
 
 func (p *Plane) RotateGlobal(angle float64, axis *V3) {
