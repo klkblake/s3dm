@@ -5,8 +5,8 @@ package s3dm
 
 type Xform struct {
 	Mat3
-	pos *V3
-	scale *V3
+	pos   V3
+	scale V3
 }
 
 func NewXform() *Xform {
@@ -17,62 +17,62 @@ func NewXform() *Xform {
 
 func (t *Xform) ResetXform() {
 	t.SetIdentity()
-	t.pos = NewV3(0, 0, 0)
-	t.scale = NewV3(1, 1, 1)
+	t.pos = V3{0, 0, 0}
+	t.scale = V3{1, 1, 1}
 }
 
 func (t *Xform) Copy() *Xform {
 	o := new(Xform)
 	o.Mat3 = *t.Mat3.Copy()
-	o.pos = t.pos.Copy()
-	o.scale = t.scale.Copy()
+	o.pos = t.pos
+	o.scale = t.scale
 	return o
 }
 
-func (t *Xform) Position() *V3 {
+func (t *Xform) Position() V3 {
 	return t.pos
 }
 
-func (t *Xform) SetPosition(v *V3) {
-	t.pos.Set(v)
+func (t *Xform) SetPosition(v V3) {
+	t.pos = v
 }
 
-func (t *Xform) MoveGlobal(v *V3) {
+func (t *Xform) MoveGlobal(v V3) {
 	t.SetPosition(t.Position().Add(v))
 }
 
-func (t *Xform) MoveLocal(v *V3) {
+func (t *Xform) MoveLocal(v V3) {
 	m := t.GetMatrix()
-	d := NewV3(
-		v.X * m[0] + v.Y * m[3] + v.Z * m[6],
-		v.X * m[1] + v.Y * m[4] + v.Z * m[7],
-		v.X * m[2] + v.Y * m[5] + v.Z * m[8])
+	d := V3{
+		v.X*m[0] + v.Y*m[3] + v.Z*m[6],
+		v.X*m[1] + v.Y*m[4] + v.Z*m[7],
+		v.X*m[2] + v.Y*m[5] + v.Z*m[8]}
 	t.SetPosition(t.Position().Add(d))
 }
 
-func (t *Xform) Scale() *V3 {
+func (t *Xform) Scale() V3 {
 	return t.scale
 }
 
-func (t *Xform) SetScale(v *V3) {
-	t.scale.Set(v)
+func (t *Xform) SetScale(v V3) {
+	t.scale = v
 }
 
-func (t *Xform) ScaleGlobal(v *V3) {
+func (t *Xform) ScaleGlobal(v V3) {
 	t.SetScale(t.Scale().Add(v))
 }
 
-func (t *Xform) ScaleLocal(v *V3) {
+func (t *Xform) ScaleLocal(v V3) {
 	m := t.GetMatrix()
-	d := NewV3(
-		v.X * m[0] + v.Y * m[3] + v.Z * m[6],
-		v.X * m[1] + v.Y * m[4] + v.Z * m[7],
-		v.X * m[2] + v.Y * m[5] + v.Z * m[8])
+	d := V3{
+		v.X*m[0] + v.Y*m[3] + v.Z*m[6],
+		v.X*m[1] + v.Y*m[4] + v.Z*m[7],
+		v.X*m[2] + v.Y*m[5] + v.Z*m[8]}
 	t.SetScale(t.Scale().Add(d))
 }
 
-func (t *Xform) GetMatrix4() [4*4]float64 {
-	result := [4*4]float64 {}
+func (t *Xform) GetMatrix4() [4 * 4]float64 {
+	result := [4 * 4]float64{}
 
 	// Set rotation
 	m := t.GetMatrix()

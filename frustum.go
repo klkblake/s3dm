@@ -5,9 +5,9 @@ import "math"
 type Frustum struct {
 	Planes [6]*Plane
 	Xform
-	Near float64
-	Far float64
-	Fovy float64
+	Near   float64
+	Far    float64
+	Fovy   float64
 	Aspect float64
 }
 
@@ -26,7 +26,7 @@ func NewFrustum(near float64, far float64, fovy float64, aspect float64) *Frustu
 }
 
 func (frustum *Frustum) Update() {
-	lookAt := frustum.Mulv(NewV3(0, 0, -1)).Unit()
+	lookAt := frustum.Mulv(V3{0, 0, -1}).Unit()
 	angleY := frustum.Fovy * 0.5
 	angleX := angleY * frustum.Aspect
 	// Near
@@ -37,16 +37,16 @@ func (frustum *Frustum) Update() {
 	frustum.Planes[1].SetN(lookAt.Muls(-1))
 	// Top
 	frustum.Planes[2].SetO(frustum.Position())
-	frustum.Planes[2].SetN(frustum.Mulv(NewV3(0, -math.Cos(angleY), -math.Sin(angleY))))
+	frustum.Planes[2].SetN(frustum.Mulv(V3{0, -math.Cos(angleY), -math.Sin(angleY)}))
 	// Bottom
 	frustum.Planes[3].SetO(frustum.Position())
-	frustum.Planes[3].SetN(frustum.Mulv(NewV3(0, math.Cos(angleY), -math.Sin(angleY))))
+	frustum.Planes[3].SetN(frustum.Mulv(V3{0, math.Cos(angleY), -math.Sin(angleY)}))
 	// Left
 	frustum.Planes[4].SetO(frustum.Position())
-	frustum.Planes[4].SetN(frustum.Mulv(NewV3(math.Cos(angleX), 0, -math.Sin(angleX))))
+	frustum.Planes[4].SetN(frustum.Mulv(V3{math.Cos(angleX), 0, -math.Sin(angleX)}))
 	// Right
 	frustum.Planes[5].SetO(frustum.Position())
-	frustum.Planes[5].SetN(frustum.Mulv(NewV3(-math.Cos(angleX), 0, -math.Sin(angleX))))
+	frustum.Planes[5].SetN(frustum.Mulv(V3{-math.Cos(angleX), 0, -math.Sin(angleX)}))
 }
 
 func (frustum *Frustum) IntersectsAABB(aabb *AABB) int {
