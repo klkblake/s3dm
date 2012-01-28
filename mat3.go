@@ -28,6 +28,18 @@ func (m *Mat3) SetIdentity() {
 		0, 0, 1 }
 }
 
+func (m *Mat3) Abs() *Mat3 {
+	ret := new(Mat3)
+	for i := 0; i < 3*3; i++ {
+		if m.matrix[i] >= 0 {
+			ret.matrix[i] = m.matrix[i]
+		} else {
+			ret.matrix[i] = -m.matrix[i]
+		}
+	}
+	return ret
+}
+
 func (m *Mat3) RotateLocal(angle float64, axis *V3) {
 	*m = *m.rotate(angle, axis)
 }
