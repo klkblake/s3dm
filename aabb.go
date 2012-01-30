@@ -14,7 +14,7 @@ func (aabb AABB) MoveGlobal(v V3) AABB {
 func (aabb AABB) IntersectsPlane(plane *Plane) int {
 	min := aabb.Min
 	max := aabb.Max
-	var temp V3
+	temp := min
 	res := plane.Side(temp)
 	// Ordered using Gray Code.
 	temp.X = max.X
