@@ -16,24 +16,16 @@ func NewXform() *Xform {
 }
 
 func (t *Xform) ResetXform() {
-	t.SetIdentity()
+	t.Mat3 = Mat3Identity
 	t.Position = V3{0, 0, 0}
 	t.Scale = V3{1, 1, 1}
-}
-
-func (t *Xform) Copy() *Xform {
-	o := new(Xform)
-	o.Mat3 = *t.Mat3.Copy()
-	o.Position = t.Position
-	o.Scale = t.Scale
-	return o
 }
 
 func (t *Xform) GetMatrix4() [4 * 4]float64 {
 	result := [4 * 4]float64{}
 
 	// Set rotation
-	m := t.GetMatrix()
+	m := t.Mat3
 	result[0] = m[0] * t.Scale.X
 	result[1] = m[1] * t.Scale.X
 	result[2] = m[2] * t.Scale.X

@@ -29,14 +29,9 @@ func (p *Plane) SetO(o V3) {
 }
 
 func (p *Plane) SetN(n V3) {
-	p.SetIdentity() // Clear rotations
+	p.Xform.Mat3 = Mat3Identity // Clear rotations
 	p.n = n.Unit()
 	p.d = -p.n.Dot(p.Position)
-}
-
-func (p *Plane) RotateGlobal(angle float64, axis V3) {
-	p.Xform.RotateGlobal(angle, axis)
-	p.SetN(p.Mulv(p.n))
 }
 
 func (p *Plane) RotateLocal(angle float64, axis V3) {

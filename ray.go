@@ -27,7 +27,7 @@ func (r *Ray) SetO(o V3) {
 }
 
 func (r *Ray) SetD(d V3) {
-	r.SetIdentity() // Reset rotations
+	r.Xform.Mat3 = Mat3Identity // Reset rotations
 	r.d = d.Unit()
 }
 
