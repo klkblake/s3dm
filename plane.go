@@ -16,7 +16,7 @@ func NewPlane(o, n V3) *Plane {
 }
 
 func (p *Plane) O() V3 {
-	return p.Position()
+	return p.Position
 }
 
 func (p *Plane) N() V3 {
@@ -24,14 +24,14 @@ func (p *Plane) N() V3 {
 }
 
 func (p *Plane) SetO(o V3) {
-	p.SetPosition(o)
+	p.Position = o
 	p.d = -p.n.Dot(o)
 }
 
 func (p *Plane) SetN(n V3) {
 	p.SetIdentity() // Clear rotations
 	p.n = n.Unit()
-	p.d = -p.n.Dot(p.Position())
+	p.d = -p.n.Dot(p.Position)
 }
 
 func (p *Plane) RotateGlobal(angle float64, axis V3) {

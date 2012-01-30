@@ -10,19 +10,19 @@ type Sphere struct {
 func NewSphere(pos V3, radius float64) *Sphere {
 	s := new(Sphere)
 	s.ResetXform()
-	s.SetPosition(pos)
+	s.Position = pos
 	s.Radius = radius
 	return s
 }
 
 // Returns the normal vector for a point 'p' on sphere 's'
 func (s *Sphere) Normal(p V3) V3 {
-	delta := p.Sub(s.Position())
+	delta := p.Sub(s.Position)
 	return delta.Unit()
 }
 
 func (s *Sphere) Intersect(r *Ray) (V3, V3) {
-	pos := s.Position()
+	pos := s.Position
 	ro, rd := r.O(), r.D()
 	A := rd.Dot(rd)
 	B := float64(2) * (rd.X*(ro.X-pos.X) +

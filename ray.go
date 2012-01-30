@@ -15,7 +15,7 @@ func NewRay(o, d V3) *Ray {
 }
 
 func (r *Ray) O() V3 {
-	return r.Position()
+	return r.Position
 }
 
 func (r *Ray) D() V3 {
@@ -23,7 +23,7 @@ func (r *Ray) D() V3 {
 }
 
 func (r *Ray) SetO(o V3) {
-	r.SetPosition(o)
+	r.Position = o
 }
 
 func (r *Ray) SetD(d V3) {
@@ -32,5 +32,5 @@ func (r *Ray) SetD(d V3) {
 }
 
 func (r *Ray) Advance(a float64) {
-	r.MoveLocal(r.D().Muls(a))
+	r.Position.AddLocal(r.Mulv(r.D().Muls(a)))
 }
