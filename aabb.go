@@ -5,15 +5,13 @@ type AABB struct {
 	Max V3
 }
 
-func NewAABB(min V3, max V3) *AABB {
-	return &AABB{min, max}
+func (aabb AABB) MoveGlobal(v V3) AABB {
+	aabb.Min.AddLocal(v)
+	aabb.Max.AddLocal(v)
+	return aabb
 }
 
-func (aabb *AABB) MoveGlobal(v V3) *AABB {
-	return NewAABB(aabb.Min.Add(v), aabb.Max.Add(v))
-}
-
-func (aabb *AABB) IntersectsPlane(plane *Plane) int {
+func (aabb AABB) IntersectsPlane(plane *Plane) int {
 	min := aabb.Min
 	max := aabb.Max
 	var temp V3

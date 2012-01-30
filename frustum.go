@@ -49,7 +49,7 @@ func (frustum *Frustum) Update() {
 	frustum.Planes[5].SetN(frustum.Mulv(V3{-math.Cos(angleX), 0, -math.Sin(angleX)}))
 }
 
-func (frustum *Frustum) IntersectsAABB(aabb *AABB) int {
+func (frustum *Frustum) IntersectsAABB(aabb AABB) int {
 	res := 1
 	for _, plane := range frustum.Planes {
 		intersects := aabb.IntersectsPlane(plane)
