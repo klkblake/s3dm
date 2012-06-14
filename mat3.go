@@ -32,7 +32,7 @@ func (m *Mat3) RotateLocal(angle float64, axis V3) {
 }
 
 func (m Mat3) GetMatrix() [3 * 3]float64 {
-	return [3*3]float64(m)
+	return [3 * 3]float64(m)
 }
 
 func (m Mat3) Right() V3 {
