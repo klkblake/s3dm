@@ -1,25 +1,26 @@
 package s3dm
 
 type AABB struct {
-	Min *V3
-	Max *V3
-	// Avoid allocations in IntersectsPlane
-	temp *V3
+	Min V3
+	Max V3
 }
 
-func NewAABB(min *V3, max *V3) *AABB {
-	return &AABB{min, max, NewV3(0, 0, 0)}
+func (aabb AABB) MoveGlobal(v V3) AABB {
+	aabb.Min.AddLocal(v)
+	aabb.Max.AddLocal(v)
+	return aabb
 }
 
-func (aabb *AABB) MoveGlobal(v *V3) *AABB {
-	return NewAABB(aabb.Min.Add(v), aabb.Max.Add(v))
+func (aabb AABB) Intersects(other *AABB) bool {
+	return aabb.Min.X <= other.Max.X && aabb.Max.X >= other.Min.X &&
+		aabb.Min.Z <= other.Max.Z && aabb.Max.Z >= other.Min.Z &&
+		aabb.Min.Y <= other.Max.Y && aabb.Max.Y >= other.Min.Y
 }
 
-func (aabb *AABB) IntersectsPlane(plane *Plane) int {
+func (aabb AABB) IntersectsPlane(plane *Plane) int {
 	min := aabb.Min
 	max := aabb.Max
-	temp := aabb.temp
-	temp.Set(min)
+	temp := min
 	res := plane.Side(temp)
 	// Ordered using Gray Code.
 	temp.X = max.X

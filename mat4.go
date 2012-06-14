@@ -26,10 +26,10 @@ func NewPerspectiveMat4(fovy, aspect, near, far float64) *Mat4 {
 
 func NewOrthographicMat4(width, height, near, far float64) *Mat4 {
 	return &Mat4{
-		2/width, 0, 0, 0,
-		0, 2/height, 0, 0,
-		0, 0, 2/(near-far), 0,
-		-1, -1, (near+far)/(near-far), 1}
+		2 / width, 0, 0, 0,
+		0, 2 / height, 0, 0,
+		0, 0, 2 / (near - far), 0,
+		-1, -1, (near + far) / (near - far), 1}
 }
 
 func (m *Mat4) SetIdentity() {
@@ -52,8 +52,8 @@ func (m *Mat4) GetFloat32Matrix() [4 * 4]float32 {
 	return *matrix
 }
 
-func (m *Mat4) Position() *V3 {
-	return NewV3(m[12], m[13], m[14])
+func (m *Mat4) Position() V3 {
+	return V3{m[12], m[13], m[14]}
 }
 
 func (m *Mat4) Mul(o *Mat4) *Mat4 {
@@ -65,24 +65,24 @@ func (m *Mat4) Mul(o *Mat4) *Mat4 {
 		cd := ca + 12
 		res[ca] =
 			m[ca]*o[0] +
-			m[cb]*o[1] +
-			m[cc]*o[2] +
-			m[cd]*o[3]
+				m[cb]*o[1] +
+				m[cc]*o[2] +
+				m[cd]*o[3]
 		res[cb] =
 			m[ca]*o[4] +
-			m[cb]*o[5] +
-			m[cc]*o[6] +
-			m[cd]*o[7]
+				m[cb]*o[5] +
+				m[cc]*o[6] +
+				m[cd]*o[7]
 		res[cc] =
 			m[ca]*o[8] +
-			m[cb]*o[9] +
-			m[cc]*o[10] +
-			m[cd]*o[11]
+				m[cb]*o[9] +
+				m[cc]*o[10] +
+				m[cd]*o[11]
 		res[cd] =
 			m[ca]*o[12] +
-			m[cb]*o[13] +
-			m[cc]*o[14] +
-			m[cd]*o[15]
+				m[cb]*o[13] +
+				m[cc]*o[14] +
+				m[cd]*o[15]
 	}
 	return res
 }
