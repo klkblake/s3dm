@@ -18,38 +18,22 @@ func (aabb AABB) Intersects(other *AABB) bool {
 }
 
 func (aabb AABB) IntersectsPlane(plane *Plane) int {
-	min := aabb.Min
-	max := aabb.Max
-	temp := min
-	res := plane.Side(temp)
-	// Ordered using Gray Code.
-	temp.X = max.X
-	if plane.Side(temp) != res {
-		return 0
+	box := [2]V3{aabb.Min, aabb.Max}
+	var px, py, pz int
+	if plane.N().X > 0 {
+		px = 1
 	}
-	temp.Y = max.Y
-	if plane.Side(temp) != res {
-		return 0
+	if plane.N().Y > 0 {
+		py = 1
 	}
-	temp.X = min.X
-	if plane.Side(temp) != res {
-		return 0
+	if plane.N().Z > 0 {
+		pz = 1
 	}
-	temp.Z = max.Z
-	if plane.Side(temp) != res {
-		return 0
+	if plane.Side(V3{box[px].X, box[py].Y, box[pz].Z}) < 0 {
+		return -1
 	}
-	temp.X = max.X
-	if plane.Side(temp) != res {
-		return 0
+	if plane.Side(V3{box[1-px].X, box[1-py].Y, box[1-pz].Z}) > 0 {
+		return 1
 	}
-	temp.Y = min.Y
-	if plane.Side(temp) != res {
-		return 0
-	}
-	temp.X = min.X
-	if plane.Side(temp) != res {
-		return 0
-	}
-	return res
+	return 0
 }
