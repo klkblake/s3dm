@@ -24,8 +24,8 @@ func (tm *TriMesh) Intersect(r *Ray) (V3, V3) {
 	for _, t := range tm.tris {
 		tt := staticTri{tm.Mulv(t.p1), tm.Mulv(t.p2), tm.Mulv(t.p3)}
 		i, n := intersectTriangle(&tt, r)
-		if (n.X != 0 || n.Y != 0 || n.Z != 0) && (first == -1 || i.Distance(r.O()) < first) {
-			first = i.Distance(r.O())
+		if (n.X != 0 || n.Y != 0 || n.Z != 0) && (first == -1 || i.Distance(r.Origin) < first) {
+			first = i.Distance(r.Origin)
 			fi = i
 			fn = n
 		}

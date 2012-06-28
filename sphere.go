@@ -23,7 +23,7 @@ func (s *Sphere) Normal(p V3) V3 {
 
 func (s *Sphere) Intersect(r *Ray) (V3, V3) {
 	pos := s.Position
-	ro, rd := r.O(), r.D()
+	ro, rd := r.Origin, r.Dir
 	A := rd.Dot(rd)
 	B := float64(2) * (rd.X*(ro.X-pos.X) +
 		rd.Y*(ro.Y-pos.Y) +

@@ -23,7 +23,7 @@ func pointInside(t triangle, p V3) bool {
 }
 
 func intersectTriangle(t triangle, r *Ray) (V3, V3) {
-	p := NewPlane(t.Center(), t.Normal())
+	p := Plane{t.Center(), t.Normal()}
 	i, n := p.Intersect(r)
 	if (n.X != 0 || n.Y != 0 || n.Z != 0) && pointInside(t, i) {
 		return i, t.Normal()
