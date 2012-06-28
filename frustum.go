@@ -3,8 +3,8 @@ package s3dm
 import "math"
 
 type Frustum struct {
-	Planes [6]Plane
 	Xform
+	Planes [6]Plane
 	Near   float64
 	Far    float64
 	Fovy   float64
