@@ -30,7 +30,3 @@ func (r *Ray) SetD(d V3) {
 	r.Xform.Mat3 = Mat3Identity // Reset rotations
 	r.d = d.Unit()
 }
-
-func (r *Ray) Advance(a float64) {
-	r.Position.AddLocal(r.Mulv(r.D().Muls(a)))
-}

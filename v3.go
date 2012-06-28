@@ -74,18 +74,8 @@ func (v V3) Add(o V3) V3 {
 		v.Z + o.Z}
 }
 
-func (v *V3) AddLocal(o V3) {
-	v.X += o.X
-	v.Y += o.Y
-	v.Z += o.Z
-}
-
 func (v V3) Adds(o float64) V3 {
 	return v.Add(V3{o, o, o})
-}
-
-func (v *V3) AddsLocal(o float64) {
-	v.AddLocal(V3{o, o, o})
 }
 
 func (v V3) Sub(o V3) V3 {
@@ -95,18 +85,8 @@ func (v V3) Sub(o V3) V3 {
 		v.Z - o.Z}
 }
 
-func (v *V3) SubLocal(o V3) {
-	v.X -= o.X
-	v.Y -= o.Y
-	v.Z -= o.Z
-}
-
 func (v V3) Subs(o float64) V3 {
 	return v.Sub(V3{o, o, o})
-}
-
-func (v *V3) SubsLocal(o float64) {
-	v.SubLocal(V3{o, o, o})
 }
 
 func (v V3) Mul(o V3) V3 {
@@ -116,18 +96,8 @@ func (v V3) Mul(o V3) V3 {
 		v.Z * o.Z}
 }
 
-func (v *V3) MulLocal(o V3) {
-	v.X *= o.X
-	v.Y *= o.Y
-	v.Z *= o.Z
-}
-
 func (v V3) Muls(o float64) V3 {
 	return v.Mul(V3{o, o, o})
-}
-
-func (v *V3) MulsLocal(o float64) {
-	v.MulLocal(V3{o, o, o})
 }
 
 func (v V3) Div(o V3) V3 {
@@ -137,18 +107,8 @@ func (v V3) Div(o V3) V3 {
 		v.Z / o.Z}
 }
 
-func (v *V3) DivLocal(o V3) {
-	v.X /= o.X
-	v.Y /= o.Y
-	v.Z /= o.Z
-}
-
 func (v V3) Divs(o float64) V3 {
 	return v.Div(V3{o, o, o})
-}
-
-func (v *V3) DivsLocal(o float64) {
-	v.DivLocal(V3{o, o, o})
 }
 
 func (v V3) Rotate(q Qtrnn) V3 {

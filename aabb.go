@@ -6,8 +6,8 @@ type AABB struct {
 }
 
 func (aabb AABB) MoveGlobal(v V3) AABB {
-	aabb.Min.AddLocal(v)
-	aabb.Max.AddLocal(v)
+	aabb.Min = aabb.Min.Add(v)
+	aabb.Max = aabb.Max.Add(v)
 	return aabb
 }
 
