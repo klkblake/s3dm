@@ -17,7 +17,7 @@ func (aabb AABB) Intersects(other AABB) bool {
 		aabb.Min.Y <= other.Max.Y && aabb.Max.Y >= other.Min.Y
 }
 
-func (aabb AABB) IntersectsPlane(plane Plane) int {
+func (aabb AABB) IntersectsPlane(plane Plane) float64 {
 	box := [2]V3{aabb.Min, aabb.Max}
 	var px, py, pz int
 	if plane.Normal.X > 0 {
@@ -29,11 +29,28 @@ func (aabb AABB) IntersectsPlane(plane Plane) int {
 	if plane.Normal.Z > 0 {
 		pz = 1
 	}
-	if plane.Side(V3{box[px].X, box[py].Y, box[pz].Z}) < 0 {
-		return -1
+	d := plane.Side(V3{box[px].X, box[py].Y, box[pz].Z})
+	if d < 0 {
+		return d
 	}
-	if plane.Side(V3{box[1-px].X, box[1-py].Y, box[1-pz].Z}) > 0 {
-		return 1
+	d = plane.Side(V3{box[1-px].X, box[1-py].Y, box[1-pz].Z})
+	if d > 0 {
+		return d
 	}
 	return 0
+}
+
+func (aabb AABB) IntersectsFrustum(frustum *Frustum) float64 {
+	// TODO: exploit temporal coherence.
+	res := float64(1)
+	for _, plane := range frustum.Planes {
+		intersects := aabb.IntersectsPlane(plane)
+		if intersects < 0 {
+			return intersects
+		}
+		if intersects == 0 {
+			res = 0
+		}
+	}
+	return res
 }

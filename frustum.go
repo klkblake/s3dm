@@ -45,18 +45,3 @@ func (frustum *Frustum) Update() {
 	frustum.Planes[5].Origin = frustum.Position
 	frustum.Planes[5].Normal = frustum.Mulv(V3{-math.Cos(angleX), 0, -math.Sin(angleX)})
 }
-
-func (frustum *Frustum) IntersectsAABB(aabb AABB) int {
-	// TODO: exploit temporal coherence.
-	res := 1
-	for _, plane := range frustum.Planes {
-		intersects := aabb.IntersectsPlane(plane)
-		if intersects < 0 {
-			return intersects
-		}
-		if intersects == 0 {
-			res = 0
-		}
-	}
-	return res
-}
