@@ -151,6 +151,12 @@ func (v *V3) DivsLocal(o float64) {
 	v.DivLocal(V3{o, o, o})
 }
 
+func (v V3) Rotate(q Qtrnn) V3 {
+	d := V3{X: q.X, Y: q.Y, Z: q.Z}
+	w := q.W
+	return v.Add(d.Cross(d.Cross(v).Add(v.Muls(w))).Muls(2))
+}
+
 func (v V3) String() string {
 	return fmt.Sprint(v.X, ", ", v.Y, ", ", v.Z)
 }
