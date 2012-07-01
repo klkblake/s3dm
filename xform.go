@@ -4,8 +4,8 @@ package s3dm
 // and rotation
 
 type Xform struct {
-	Mat3
 	Position V3
+	Rotation Qtrnn
 	Scale    V3
 }
 
@@ -16,8 +16,8 @@ func NewXform() *Xform {
 }
 
 func (t *Xform) ResetXform() {
-	t.Mat3 = Mat3Identity
 	t.Position = V3{0, 0, 0}
+	t.Rotation = Qtrnn{1, 0, 0, 0}
 	t.Scale = V3{1, 1, 1}
 }
 
@@ -25,7 +25,7 @@ func (t *Xform) GetMatrix4() [4 * 4]float64 {
 	result := [4 * 4]float64{}
 
 	// Set rotation
-	m := t.Mat3
+	m := t.Rotation.Matrix()
 	result[0] = m[0] * t.Scale.X
 	result[1] = m[1] * t.Scale.X
 	result[2] = m[2] * t.Scale.X
