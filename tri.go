@@ -47,7 +47,7 @@ func (t *staticTri) Normal() V3 {
 
 func (t *staticTri) Center() V3 {
 	// (p1 + p2 + p3) / 3
-	return t.p1.Add(t.p2.Add(t.p3)).Divs(3)
+	return t.p1.Add(t.p2.Add(t.p3)).Muls(1./3)
 }
 
 // Tri is basicly a staticTri with a transform

@@ -64,7 +64,7 @@ func (v V3) SetLength(l float64) V3 {
 
 // Returns a new vector equal to 'v' normalized
 func (v V3) Unit() V3 {
-	return v.Divs(v.Length())
+	return v.Muls(1/v.Length())
 }
 
 func (v V3) Add(o V3) V3 {
@@ -98,17 +98,6 @@ func (v V3) Mul(o V3) V3 {
 
 func (v V3) Muls(o float64) V3 {
 	return v.Mul(V3{o, o, o})
-}
-
-func (v V3) Div(o V3) V3 {
-	return V3{
-		v.X / o.X,
-		v.Y / o.Y,
-		v.Z / o.Z}
-}
-
-func (v V3) Divs(o float64) V3 {
-	return v.Div(V3{o, o, o})
 }
 
 func (v V3) Rotate(q Qtrnn) V3 {
