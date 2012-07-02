@@ -10,10 +10,6 @@ var Mat3Identity = Mat3{
 	0, 0, 1,
 }
 
-func (m Mat3) GetMatrix() [3 * 3]float64 {
-	return [3 * 3]float64(m)
-}
-
 // Multiply 'm' by 'o' and return result
 func (m Mat3) Mul(o Mat3) Mat3 {
 	var result Mat3
@@ -43,6 +39,10 @@ func (m Mat3) Mulv(v V3) V3 {
 		v.X*m[0] + v.Y*m[3] + v.Z*m[6],
 		v.X*m[1] + v.Y*m[4] + v.Z*m[7],
 		v.X*m[2] + v.Y*m[5] + v.Z*m[8]}
+}
+
+func (m Mat3) RawMatrix() [3 * 3]float64 {
+	return [3 * 3]float64(m)
 }
 
 func (m Mat3) String() string {
