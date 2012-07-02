@@ -3,7 +3,7 @@ package s3dm
 
 import "math"
 
-var QtrnnIdentity = Qtrnn{1, 0, 0, 0}
+var QtrnnIdentity = Qtrnn{0, 0, 0, 1}
 
 type Qtrnn struct {
 	X, Y, Z, W float64
