@@ -13,7 +13,7 @@ type Frustum struct {
 
 func NewFrustum(near float64, far float64, fovy float64, aspect float64) *Frustum {
 	frustum := new(Frustum)
-	frustum.ResetXform()
+	frustum.Xform = XformIdentity
 	frustum.Near = near
 	frustum.Far = far
 	frustum.Fovy = fovy

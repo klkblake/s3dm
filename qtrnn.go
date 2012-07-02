@@ -1,5 +1,7 @@
 package s3dm
 
+var QtrnnIdentity = Qtrnn{1, 0, 0, 0}
+
 type Qtrnn struct {
 	X, Y, Z, W float64
 }

@@ -7,7 +7,7 @@ type TriMesh struct {
 
 func NewTriMesh(tris []*Tri) *TriMesh {
 	tm := new(TriMesh)
-	tm.ResetXform()
+	tm.Xform = XformIdentity
 
 	for _, t := range tris {
 		p1, p2, p3 := t.Points()

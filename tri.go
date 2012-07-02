@@ -58,7 +58,7 @@ type Tri struct {
 
 func NewTri(p1, p2, p3 V3) *Tri {
 	t := new(Tri)
-	t.ResetXform()
+	t.Xform = XformIdentity
 	t.st = staticTri{p1, p2, p3}
 	return t
 }

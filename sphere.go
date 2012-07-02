@@ -9,7 +9,7 @@ type Sphere struct {
 
 func NewSphere(pos V3, radius float64) *Sphere {
 	s := new(Sphere)
-	s.ResetXform()
+	s.Xform = XformIdentity
 	s.Position = pos
 	s.Radius = radius
 	return s

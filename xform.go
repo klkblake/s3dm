@@ -3,27 +3,19 @@ package s3dm
 // This struct should be implemented by others that have a physical position
 // and rotation
 
+var XformIdentity = Xform{
+	V3{0, 0, 0},
+	QtrnnIdentity,
+	V3{1, 1, 1},
+}
+
 type Xform struct {
 	Position V3
 	Rotation Qtrnn
 	Scale    V3
 }
 
-func NewXform() *Xform {
-	t := new(Xform)
-	t.ResetXform()
-	return t
-}
-
-func (t *Xform) ResetXform() {
-	t.Position = V3{0, 0, 0}
-	t.Rotation = Qtrnn{1, 0, 0, 0}
-	t.Scale = V3{1, 1, 1}
-}
-
-func (t *Xform) GetMatrix4() [4 * 4]float64 {
-	result := [4 * 4]float64{}
-
+func (t Xform) Matrix() (result Mat4) {
 	// Set rotation
 	m := t.Rotation.Matrix()
 	result[0] = m[0] * t.Scale.X
@@ -43,6 +35,5 @@ func (t *Xform) GetMatrix4() [4 * 4]float64 {
 
 	// Set Identity
 	result[15] = 1
-
-	return result
+	return
 }
