@@ -23,7 +23,8 @@ func NewFrustum(near float64, far float64, fovy float64, aspect float64) *Frustu
 }
 
 func (frustum *Frustum) Update() {
-	lookAt := frustum.Mulv(V3{0, 0, -1}).Unit()
+	rot := frustum.Rotation.Matrix()
+	lookAt := rot.Mulv(V3{1, 0, 0}).Unit()
 	angleY := frustum.Fovy * 0.5
 	angleX := angleY * frustum.Aspect
 	// Near
@@ -34,14 +35,14 @@ func (frustum *Frustum) Update() {
 	frustum.Planes[1].Normal = lookAt.Muls(-1)
 	// Top
 	frustum.Planes[2].Origin = frustum.Position
-	frustum.Planes[2].Normal = frustum.Mulv(V3{0, -math.Cos(angleY), -math.Sin(angleY)})
+	frustum.Planes[2].Normal = rot.Mulv(V3{0, -math.Cos(angleY), -math.Sin(angleY)})
 	// Bottom
 	frustum.Planes[3].Origin = frustum.Position
-	frustum.Planes[3].Normal = frustum.Mulv(V3{0, math.Cos(angleY), -math.Sin(angleY)})
+	frustum.Planes[3].Normal = rot.Mulv(V3{0, math.Cos(angleY), -math.Sin(angleY)})
 	// Left
 	frustum.Planes[4].Origin = frustum.Position
-	frustum.Planes[4].Normal = frustum.Mulv(V3{math.Cos(angleX), 0, -math.Sin(angleX)})
+	frustum.Planes[4].Normal = rot.Mulv(V3{math.Cos(angleX), 0, -math.Sin(angleX)})
 	// Right
 	frustum.Planes[5].Origin = frustum.Position
-	frustum.Planes[5].Normal = frustum.Mulv(V3{-math.Cos(angleX), 0, -math.Sin(angleX)})
+	frustum.Planes[5].Normal = rot.Mulv(V3{-math.Cos(angleX), 0, -math.Sin(angleX)})
 }

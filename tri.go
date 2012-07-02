@@ -68,7 +68,8 @@ func (t *Tri) Copy() *Tri {
 }
 
 func (t *Tri) Points() (V3, V3, V3) {
-	return t.Mulv(t.st.p1), t.Mulv(t.st.p2), t.Mulv(t.st.p3)
+	rot := t.Rotation.Matrix()
+	return rot.Mulv(t.st.p1), rot.Mulv(t.st.p2), rot.Mulv(t.st.p3)
 }
 
 func (t *Tri) SetPoints(p1, p2, p3 V3) {
@@ -78,11 +79,11 @@ func (t *Tri) SetPoints(p1, p2, p3 V3) {
 }
 
 func (t *Tri) Normal() V3 {
-	return t.Mulv(t.st.Normal())
+	return t.st.Normal().Rotate(t.Rotation)
 }
 
 func (t *Tri) Center() V3 {
-	return t.Mulv(t.st.Center())
+	return t.st.Center().Rotate(t.Rotation)
 }
 
 func (t *Tri) Intersect(r *Ray) (V3, V3) {
