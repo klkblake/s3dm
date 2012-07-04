@@ -64,7 +64,7 @@ func (v V3) SetLength(l float64) V3 {
 
 // Returns a new vector equal to 'v' normalized
 func (v V3) Unit() V3 {
-	return v.Muls(1/v.Length())
+	return v.Muls(1 / v.Length())
 }
 
 func (v V3) Add(o V3) V3 {

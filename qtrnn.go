@@ -1,6 +1,5 @@
 package s3dm
 
-
 import "math"
 
 var QtrnnIdentity = Qtrnn{0, 0, 0, 1}
@@ -10,8 +9,8 @@ type Qtrnn struct {
 }
 
 func AxisAngle(axis V3, angle float64) Qtrnn {
-	a := axis.Muls(math.Sin(angle/2))
-	return Qtrnn{a.X, a.Y, a.Z, math.Cos(angle*0.5)}
+	a := axis.Muls(math.Sin(angle / 2))
+	return Qtrnn{a.X, a.Y, a.Z, math.Cos(angle * 0.5)}
 }
 
 func (q Qtrnn) Mul(p Qtrnn) Qtrnn {
