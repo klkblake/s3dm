@@ -4,16 +4,16 @@ package s3dm
 // and rotation
 
 var XformIdentity = Xform{
-	V3{0, 0, 0},
+	Position{},
 	QtrnnIdentity,
 }
 
 type Xform struct {
-	Position V3
+	Position Position
 	Rotation Qtrnn
 }
 
-func (xf Xform) Matrix() (result Mat4) {
+func (xf Xform) Matrix(origin Position) (result Mat4) {
 	// Set rotation
 	m := xf.Rotation.Matrix()
 	result[0] = m[0]
@@ -27,9 +27,10 @@ func (xf Xform) Matrix() (result Mat4) {
 	result[10] = m[8]
 
 	// Set Position
-	result[12] = xf.Position.X
-	result[13] = xf.Position.Y
-	result[14] = xf.Position.Z
+	p := xf.Position.Sub(origin)
+	result[12] = p.X
+	result[13] = p.Y
+	result[14] = p.Z
 
 	// Set Identity
 	result[15] = 1

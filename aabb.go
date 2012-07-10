@@ -1,8 +1,8 @@
 package s3dm
 
 type AABB struct {
-	Min V3
-	Max V3
+	Min Position
+	Max Position
 }
 
 func (aabb AABB) MoveGlobal(v V3) AABB {
@@ -18,7 +18,7 @@ func (aabb AABB) Intersects(other AABB) bool {
 }
 
 func (aabb AABB) IntersectsPlane(plane Plane) float64 {
-	box := [2]V3{aabb.Min, aabb.Max}
+	box := [2]Position{aabb.Min, aabb.Max}
 	var px, py, pz int
 	if plane.Normal.X > 0 {
 		px = 1
@@ -29,11 +29,11 @@ func (aabb AABB) IntersectsPlane(plane Plane) float64 {
 	if plane.Normal.Z > 0 {
 		pz = 1
 	}
-	d := plane.Side(V3{box[px].X, box[py].Y, box[pz].Z})
+	d := plane.Side(Position{box[px].X, box[py].Y, box[pz].Z})
 	if d < 0 {
 		return d
 	}
-	d = plane.Side(V3{box[1-px].X, box[1-py].Y, box[1-pz].Z})
+	d = plane.Side(Position{box[1-px].X, box[1-py].Y, box[1-pz].Z})
 	if d > 0 {
 		return d
 	}

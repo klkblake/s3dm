@@ -17,16 +17,20 @@ func NewTriMesh(tris []*Tri) *TriMesh {
 }
 
 // TODO: Prettify...
-func (tm *TriMesh) Intersect(r *Ray) (V3, V3) {
+func (tm *TriMesh) Intersect(r *Ray) (Position, V3) {
 	first := float64(-1)
-	var fi, fn V3
+	var fi Position
+	var fn V3
 
 	rot := tm.Rotation.Matrix()
 	for _, t := range tm.tris {
-		tt := staticTri{rot.Mulv(t.p1), rot.Mulv(t.p2), rot.Mulv(t.p3)}
+		p1 := tm.Position.Add(rot.Mulv(t.p1.Sub(Position{})))
+		p2 := tm.Position.Add(rot.Mulv(t.p2.Sub(Position{})))
+		p3 := tm.Position.Add(rot.Mulv(t.p3.Sub(Position{})))
+		tt := staticTri{p1, p2, p3}
 		i, n := intersectTriangle(&tt, r)
-		if (n.X != 0 || n.Y != 0 || n.Z != 0) && (first == -1 || i.Distance(r.Origin) < first) {
-			first = i.Distance(r.Origin)
+		if (n.X != 0 || n.Y != 0 || n.Z != 0) && (first == -1 || i.Sub(r.Origin).Length() < first) {
+			first = i.Sub(r.Origin).Length()
 			fi = i
 			fn = n
 		}

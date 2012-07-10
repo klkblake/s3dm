@@ -10,8 +10,8 @@ type XformScale struct {
 	Scale V3
 }
 
-func (xfs XformScale) Matrix() (result Mat4) {
-	result = xfs.Xform.Matrix()
+func (xfs XformScale) Matrix(origin Position) (result Mat4) {
+	result = xfs.Xform.Matrix(origin)
 	result[0] *= xfs.Scale.X
 	result[1] *= xfs.Scale.X
 	result[2] *= xfs.Scale.X

@@ -1,6 +1,6 @@
 package s3dm
 
 type Ray struct {
-	Origin V3
+	Origin Position
 	Dir    V3
 }

@@ -6,7 +6,7 @@ import "strconv"
 type Fixed64 int64
 
 func NewFixed64(f float64) Fixed64 {
-	return Fixed64(f*(1<<32))
+	return Fixed64(f * (1 << 32))
 }
 
 func (f Fixed64) Modf() (int Fixed64, frac Fixed64) {

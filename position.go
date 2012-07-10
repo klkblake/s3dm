@@ -9,5 +9,5 @@ func (p Position) Add(v V3) Position {
 }
 
 func (p Position) Sub(o Position) V3 {
-	return V3{(p.X-o.X).Float64(), (p.Y-o.Y).Float64(), (p.Z-o.Z).Float64()}
+	return V3{(p.X - o.X).Float64(), (p.Y - o.Y).Float64(), (p.Z - o.Z).Float64()}
 }

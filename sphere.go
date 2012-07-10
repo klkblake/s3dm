@@ -7,7 +7,7 @@ type Sphere struct {
 	Radius float64
 }
 
-func NewSphere(pos V3, radius float64) *Sphere {
+func NewSphere(pos Position, radius float64) *Sphere {
 	s := new(Sphere)
 	s.Xform = XformIdentity
 	s.Position = pos
@@ -16,21 +16,22 @@ func NewSphere(pos V3, radius float64) *Sphere {
 }
 
 // Returns the normal vector for a point 'p' on sphere 's'
-func (s *Sphere) Normal(p V3) V3 {
+func (s *Sphere) Normal(p Position) V3 {
 	delta := p.Sub(s.Position)
 	return delta.Unit()
 }
 
-func (s *Sphere) Intersect(r *Ray) (V3, V3) {
+func (s *Sphere) Intersect(r *Ray) (Position, V3) {
 	pos := s.Position
 	ro, rd := r.Origin, r.Dir
+	rp := ro.Sub(pos)
 	A := rd.Dot(rd)
-	B := float64(2) * (rd.X*(ro.X-pos.X) +
-		rd.Y*(ro.Y-pos.Y) +
-		rd.Z*(ro.Z-pos.Z))
-	C := ((ro.X-pos.X)*(ro.X-pos.X) +
-		(ro.Y-pos.Y)*(ro.Y-pos.Y) +
-		(ro.Z-pos.Z)*(ro.Z-pos.Z)) -
+	B := float64(2) * (rd.X*rp.X +
+		rd.Y*rp.Y +
+		rd.Z*rp.Z)
+	C := (rp.X*rp.X +
+		rp.Y*rp.Y +
+		rp.Z*rp.Z) -
 		s.Radius*s.Radius
 
 	delta := B*B - 4*A*C
@@ -47,7 +48,7 @@ func (s *Sphere) Intersect(r *Ray) (V3, V3) {
 
 		// Sphere behind ray
 		if t1 < 0 {
-			return V3{}, V3{}
+			return Position{}, V3{}
 		}
 
 		if t0 < 0 {
@@ -56,9 +57,9 @@ func (s *Sphere) Intersect(r *Ray) (V3, V3) {
 			t = t0
 		}
 
-		intersection := V3{ro.X + rd.X*t, ro.Y + rd.Y*t, ro.Z + rd.Z*t}
+		intersection := ro.Add(rd.Muls(t))
 		normal := s.Normal(intersection)
 		return intersection, normal
 	}
-	return V3{}, V3{}
+	return Position{}, V3{}
 }

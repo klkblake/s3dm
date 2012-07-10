@@ -21,11 +21,6 @@ func (v V3) Length() float64 {
 	return math.Sqrt(v.LengthSquared())
 }
 
-// Returns the distance from 'v' to 'o'
-func (v V3) Distance(o V3) float64 {
-	return v.Sub(o).Length()
-}
-
 // Returns the Dot product of 'v' and 'o'
 func (v V3) Dot(o V3) float64 {
 	return v.X*o.X + v.Y*o.Y + v.Z*o.Z
