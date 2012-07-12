@@ -26,7 +26,7 @@ func (f Fixed64) Ceil() Fixed64 {
 	if f & lowMask == 0 {
 		return f
 	}
-	return f &^ lowMask + 1
+	return f &^ lowMask + unit
 }
 
 func (f Fixed64) Floor() Fixed64 {
@@ -58,7 +58,7 @@ func (f Fixed64) Modf() (int Fixed64, frac Fixed64) {
 }
 
 func (f Fixed64) Int64() int64 {
-	if f >= 0 {
+	if f >= 0 || f & lowMask == 0 {
 		return int64(f >> fracBits)
 	}
 	return int64(f >> fracBits) + 1
