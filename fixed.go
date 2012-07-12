@@ -23,27 +23,45 @@ func (f Fixed64) Abs() Fixed64 {
 }
 
 func (f Fixed64) Ceil() Fixed64 {
-	if f <= 0 || f & lowMask == 0 {
-		return f &^ lowMask
+	if f & lowMask == 0 {
+		return f
 	}
 	return f &^ lowMask + 1
 }
 
 func (f Fixed64) Floor() Fixed64 {
-	if f >= 0 || f & lowMask == 0 {
-		return f &^ lowMask
+	return f &^ lowMask
+}
+
+func (f Fixed64) Max(o Fixed64) Fixed64 {
+	if f >= o {
+		return f
 	}
-	return f &^ lowMask - 1
+	return o
+}
+
+func (f Fixed64) Min(o Fixed64) Fixed64 {
+	if f <= o {
+		return f
+	}
+	return o
 }
 
 func (f Fixed64) Modf() (int Fixed64, frac Fixed64) {
 	int = f &^ lowMask
-	frac = f & lowMask
+	if f >= 0 {
+		frac = f & lowMask
+	} else {
+		frac = f | ^lowMask
+	}
 	return
 }
 
 func (f Fixed64) Int64() int64 {
-	return int64(f >> fracBits)
+	if f >= 0 {
+		return int64(f >> fracBits)
+	}
+	return int64(f >> fracBits) + 1
 }
 
 func (f Fixed64) Float64() float64 {
@@ -52,5 +70,8 @@ func (f Fixed64) Float64() float64 {
 
 func (f Fixed64) String() string {
 	_, frac := f.Modf()
-	return strconv.FormatInt(f.Int64(), 10) + strconv.FormatFloat(frac.Float64(), 'f', -1, 64)[1:]
+	if f >= 0 {
+		return strconv.FormatInt(f.Int64(), 10) + strconv.FormatFloat(frac.Float64(), 'f', -1, 64)[1:]
+	}
+	return "-" + strconv.FormatInt(f.Int64(), 10) + strconv.FormatFloat(frac.Float64(), 'f', -1, 64)[2:]
 }
