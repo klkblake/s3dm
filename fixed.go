@@ -73,5 +73,8 @@ func (f Fixed64) String() string {
 	if f >= 0 {
 		return strconv.FormatInt(f.Int64(), 10) + strconv.FormatFloat(frac.Float64(), 'f', -1, 64)[1:]
 	}
-	return "-" + strconv.FormatInt(f.Int64(), 10) + strconv.FormatFloat(frac.Float64(), 'f', -1, 64)[2:]
+	if f.Int64() == 0 {
+		return "-" + strconv.FormatInt(f.Int64(), 10) + strconv.FormatFloat(frac.Float64(), 'f', -1, 64)[2:]
+	}
+	return strconv.FormatInt(f.Int64(), 10) + strconv.FormatFloat(frac.Float64(), 'f', -1, 64)[2:]
 }
