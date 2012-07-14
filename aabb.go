@@ -12,9 +12,13 @@ func (aabb AABB) MoveGlobal(v V3) AABB {
 }
 
 func (aabb AABB) Intersects(other AABB) bool {
-	return aabb.Min.X <= other.Max.X && aabb.Max.X >= other.Min.X &&
-		aabb.Min.Z <= other.Max.Z && aabb.Max.Z >= other.Min.Z &&
-		aabb.Min.Y <= other.Max.Y && aabb.Max.Y >= other.Min.Y
+	min1 := aabb.Min
+	max1 := aabb.Max
+	min2 := other.Min
+	max2 := other.Max
+	return min1.X.Lt(max2.X) && max1.X.Gt(min2.X) &&
+		min1.Z.Lt(max2.Z) && max1.Z.Gt(min2.Z) &&
+		min1.Y.Lt(max2.Y) && max1.Y.Gt(min2.Y)
 }
 
 func (aabb AABB) IntersectsPlane(plane Plane) float64 {

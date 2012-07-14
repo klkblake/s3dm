@@ -1,13 +1,15 @@
 package s3dm
 
+import "github.com/klkblake/fixed"
+
 type Position struct {
-	X, Y, Z Fixed64
+	X, Y, Z fixed.Fixed
 }
 
 func (p Position) Add(v V3) Position {
-	return Position{p.X + NewFixed64(v.X), p.Y + NewFixed64(v.Y), p.Z + NewFixed64(v.Z)}
+	return Position{p.X.Add(fixed.New(v.X)), p.Y.Add(fixed.New(v.Y)), p.Z.Add(fixed.New(v.Z))}
 }
 
 func (p Position) Sub(o Position) V3 {
-	return V3{(p.X - o.X).Float64(), (p.Y - o.Y).Float64(), (p.Z - o.Z).Float64()}
+	return V3{(p.X.Sub(o.X)).Float64(), (p.Y.Sub(o.Y)).Float64(), (p.Z.Sub(o.Z)).Float64()}
 }
