@@ -11,7 +11,7 @@ func (aabb AABB) MoveGlobal(v V3) AABB {
 	return aabb
 }
 
-func (aabb AABB) Inside(p Position) bool {
+func (aabb AABB) Contains(p Position) bool {
 	return aabb.Min.X.Lt(p.X) && aabb.Max.X.Gt(p.X) &&
 		aabb.Min.Y.Lt(p.Y) && aabb.Max.Y.Gt(p.X) &&
 		aabb.Min.Z.Lt(p.Z) && aabb.Max.Z.Gt(p.X)
