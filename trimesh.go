@@ -24,13 +24,13 @@ func (tm *TriMesh) Intersect(r *Ray) (Position, V3) {
 
 	rot := tm.Rotation.Matrix()
 	for _, t := range tm.tris {
-		p1 := tm.Position.Add(rot.Mulv(t.p1.Sub(Position{})))
-		p2 := tm.Position.Add(rot.Mulv(t.p2.Sub(Position{})))
-		p3 := tm.Position.Add(rot.Mulv(t.p3.Sub(Position{})))
+		p1 := tm.Position.Addf(rot.Mulv(t.p1.Sub(Position{}).V3()))
+		p2 := tm.Position.Addf(rot.Mulv(t.p2.Sub(Position{}).V3()))
+		p3 := tm.Position.Addf(rot.Mulv(t.p3.Sub(Position{}).V3()))
 		tt := staticTri{p1, p2, p3}
 		i, n := intersectTriangle(&tt, r)
-		if (n.X != 0 || n.Y != 0 || n.Z != 0) && (first == -1 || i.Sub(r.Origin).Length() < first) {
-			first = i.Sub(r.Origin).Length()
+		if (n.X != 0 || n.Y != 0 || n.Z != 0) && (first == -1 || i.Sub(r.Origin).V3().Length() < first) {
+			first = i.Sub(r.Origin).V3().Length()
 			fi = i
 			fn = n
 		}

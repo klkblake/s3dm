@@ -5,9 +5,9 @@ type AABB struct {
 	Max Position
 }
 
-func (aabb AABB) MoveGlobal(v V3) AABB {
-	aabb.Min = aabb.Min.Add(v)
-	aabb.Max = aabb.Max.Add(v)
+func (aabb AABB) Move(d Position) AABB {
+	aabb.Min = aabb.Min.Add(d)
+	aabb.Max = aabb.Max.Add(d)
 	return aabb
 }
 

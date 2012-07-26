@@ -17,14 +17,14 @@ func NewSphere(pos Position, radius float64) *Sphere {
 
 // Returns the normal vector for a point 'p' on sphere 's'
 func (s *Sphere) Normal(p Position) V3 {
-	delta := p.Sub(s.Position)
+	delta := p.Sub(s.Position).V3()
 	return delta.Unit()
 }
 
 func (s *Sphere) Intersect(r *Ray) (Position, V3) {
 	pos := s.Position
 	ro, rd := r.Origin, r.Dir
-	rp := ro.Sub(pos)
+	rp := ro.Sub(pos).V3()
 	A := rd.Dot(rd)
 	B := float64(2) * (rd.X*rp.X +
 		rd.Y*rp.Y +
@@ -57,7 +57,7 @@ func (s *Sphere) Intersect(r *Ray) (Position, V3) {
 			t = t0
 		}
 
-		intersection := ro.Add(rd.Muls(t))
+		intersection := ro.Addf(rd.Muls(t))
 		normal := s.Normal(intersection)
 		return intersection, normal
 	}

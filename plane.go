@@ -13,17 +13,17 @@ func (p Plane) Intersect(r *Ray) (Position, V3) {
 	if denom == 0 {
 		return Position{}, V3{}
 	}
-	t := (pn.Dot(po.Sub(ro))) / denom
+	t := (pn.Dot(po.Sub(ro).V3())) / denom
 	if t <= 0 {
 		return Position{}, V3{}
 	}
 	// If hitting underside; flip plane normal
 	if denom > 0 {
-		return ro.Add(rd.Muls(t)), pn.Muls(-1)
+		return ro.Addf(rd.Muls(t)), pn.Muls(-1)
 	}
-	return ro.Add(rd.Muls(t)), pn
+	return ro.Addf(rd.Muls(t)), pn
 }
 
 func (p Plane) Side(point Position) float64 {
-	return p.Normal.Dot(point.Sub(p.Origin))
+	return p.Normal.Dot(point.Sub(p.Origin).V3())
 }

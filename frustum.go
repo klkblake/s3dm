@@ -28,10 +28,10 @@ func (frustum *Frustum) Update() {
 	angleY := frustum.Fovy * 0.5
 	angleX := angleY * frustum.Aspect
 	// Near
-	frustum.Planes[0].Origin = frustum.Position.Add(lookAt.Muls(frustum.Near))
+	frustum.Planes[0].Origin = frustum.Position.Addf(lookAt.Muls(frustum.Near))
 	frustum.Planes[0].Normal = lookAt
 	// Far
-	frustum.Planes[1].Origin = frustum.Position.Add(lookAt.Muls(frustum.Far))
+	frustum.Planes[1].Origin = frustum.Position.Addf(lookAt.Muls(frustum.Far))
 	frustum.Planes[1].Normal = lookAt.Muls(-1)
 	// Top
 	frustum.Planes[2].Origin = frustum.Position

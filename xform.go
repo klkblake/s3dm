@@ -27,7 +27,7 @@ func (xf Xform) Matrix(origin Position) (result Mat4) {
 	result[10] = m[8]
 
 	// Set Position
-	p := xf.Position.Sub(origin)
+	p := xf.Position.Sub(origin).V3()
 	result[12] = p.X
 	result[13] = p.Y
 	result[14] = p.Z
