@@ -64,3 +64,15 @@ func (aabb AABB) IntersectsFrustum(frustum *Frustum) float64 {
 	}
 	return res
 }
+
+type LocalAABB struct {
+	Min V3
+	Max V3
+}
+
+func (aabb LocalAABB) AABB(p Position) AABB {
+	return AABB{
+		Min: p.Addf(aabb.Min),
+		Max: p.Addf(aabb.Max),
+	}
+}
